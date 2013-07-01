@@ -1,3 +1,11 @@
+/*
+	Name: 			use point in function
+	Copyright: 		pezy.me
+	Author: 		pezy
+	Date: 			01/07/13 16:45
+	Description: 	show * and &. output 566.
+*/
+
 #include <iostream>
 
 int nFive = 5;

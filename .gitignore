@@ -1,1 +1,6 @@
 *.exe
+/Tools/Debug
+/Tools/Tools/Debug
+/Tools/Release
+/Tools/*.sdf
+/Tools/*.suo

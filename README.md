@@ -15,6 +15,7 @@
 
 - Cpp
 	- Basic	:一些最基本的例子程序。为了说明某种语法以及常规用法。
+	- TestADO :Windows下用ADO连接数据库的一些基本操作的基本写法。
 	- TestClang :Mac下的C++尝试
 	- Tools :包含项目所需的常用工具函数或类
 		- plog :超级轻量级的日志调试类，支持打印log到console和log file。

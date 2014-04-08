@@ -1,4 +1,5 @@
-#import "C:\Program files\Common Files\System\Ado\msado27.tlb" no_namespace rename("EOF", "EndOfFile")
+#import "C:\Program files\Common Files\System\Ado\msado27.tlb" \
+	no_namespace rename("EOF", "EndOfFile")
 
 #include <oledb.h>
 #include <stdio.h>
@@ -37,7 +38,9 @@ void PrintComError(_com_error &e) {
 void OpenX() {
 	_ConnectionPtr pConnection = NULL;
 	_RecordsetPtr pRstDBName = NULL;
-	_bstr_t strCnn("Provider='sqloledb'; Data Source='WIN2000';");//Initial Catalog='MAINLOGSQL_NEW';
+	_RecordsetPtr pRstValue = NULL;
+	_bstr_t strCnn("Provider='sqloledb'; Data Source='WIN2000';");
+	//Initial Catalog='MAINLOGSQL_NEW';
 
 	try {
 		// open connection and record set
@@ -55,6 +58,21 @@ void OpenX() {
 
 			pRstDBName->MoveNext();
 		}
+
+		pConnection->DefaultDatabase = "MAINLOGSQL_NEW";
+		TESTHR(pRstValue.CreateInstance(__uuidof(Recordset)));
+		pRstValue->Open("SELECT TOP 1 * FROM GTB WHERE(WID = 'q74')",
+			_variant_t((IDispatch *)pConnection, true),
+			adOpenStatic, adLockReadOnly, adCmdText);
+
+		while (!(pRstValue->EndOfFile)) {
+			// Convert variant string to convertable string type.
+			_bstr_t  bstrValue = pRstValue->Fields->GetItem("DATE")->Value;
+			printf("\t%s\n", (LPCSTR)bstrValue);
+
+			pRstValue->MoveNext();
+		}
+
 	}
 	catch (_com_error &e) {
 		// Display errors, if any. Pass a connection pointer accessed from the Connection.
@@ -65,6 +83,9 @@ void OpenX() {
 	if (pRstDBName)
 		if (pRstDBName->State == adStateOpen)
 			pRstDBName->Close();
+	if (pRstValue)
+		if (pRstValue->State == adStateOpen)
+			pRstValue->Close();
 	if (pConnection)
 		if (pConnection->State == adStateOpen)
 			pConnection->Close();

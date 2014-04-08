@@ -3,3 +3,4 @@ Debug/
 Release/
 *.sdf
 *.suo
+*.GhostDoc.xml

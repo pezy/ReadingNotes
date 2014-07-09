@@ -6,3 +6,4 @@ Release/
 *.GhostDoc.xml
 *.xcodeproj
 .DS_Store
+*.1

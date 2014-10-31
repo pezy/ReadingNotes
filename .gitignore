@@ -1,9 +1,0 @@
-*.exe
-Debug/
-Release/
-*.sdf
-*.suo
-*.GhostDoc.xml
-*.xcodeproj
-.DS_Store
-*.1

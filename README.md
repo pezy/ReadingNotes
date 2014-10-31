@@ -14,4 +14,4 @@ ZH:
 
 | Book | Chapter | Date | Note |
 | ---- | ------- | ---- | ---- |
-|OpenGL - Introduction|1~3|2014-10-31|open.gl|
+|OpenGL - Introduction|1~3|2014-10-31|[open.gl](open.gl)|

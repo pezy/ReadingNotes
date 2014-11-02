@@ -67,3 +67,7 @@ int main(int argc, char *argv[])
 	return 0;
 }
 ```
+
+##The graphics pipeline
+
+![](https://open.gl/media/img/c2_pipeline.png)

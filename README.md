@@ -1,7 +1,7 @@
 Reading Notes
 ===========
 
-Reading:
+##Reading:
 - [ ] [C++ Primer 5th](http://book.douban.com/subject/24089577/)
   - [x] Chapter 1. Getting Started
   - [x] Chapter 2. Variables and Basic Types
@@ -64,6 +64,8 @@ Reading:
 
 ----------
 
+##Plan
+
 | Date | CP | Open.gl | 暗时间 |
 |:----:|:--:|:-------:|:------:|
 |	2014-11-05	| Chapter 7. Classes | Vertex input | 逃出你的肖申克 |
@@ -81,3 +83,7 @@ Reading:
 |	2014-11-17	|
 |	2014-11-18	|
 |	2014-11-19	|
+
+------
+
+## Todo

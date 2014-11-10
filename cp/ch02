@@ -1,0 +1,11 @@
+#Chapter 2. Variables and Basic Types
+
+##名不正言不顺
+
+曾在 Stackoverflow 上 po 过[一个问题](http://stackoverflow.com/questions/26711536/initializing-a-stdvector-from-a-count-and-an-element-value-with-copies)，引起了叫法之争。也让我引起了我对于一些叫法的注意。
+
+2.2.1. Variable Definitions 里面有一小节提了这个问题：
+>Terminology: What is an Object?
+>C++ programmers tend to be cavalier in their use of the term object. Most generally, an object is a region of memory that can contain data and has a type.
+>Some use the term object only to refer to variables or values of class types. Others distinguish between named and unnamed objects, using the term variable to refer to named objects. Still others distinguish between objects and values, using the term object for data that can be changed by the program and the term value for data that are read-only.
+>In this book, we’ll follow the more general usage that an object is a region of memory that has a type. We will freely use the term object regardless of whether the object has built-in or class type, is named or unnamed, or can be read or written.

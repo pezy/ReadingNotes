@@ -25,7 +25,7 @@ Reading Notes
 - [ ] [OpenGL - Introduction](https://open.gl)
   - [x] Introduction
   - [x] Content creation
-  - [ ] Drawing polygons
+  - [x] Drawing polygons
   - [ ] Textures
   - [ ] Transformations
   - [ ] Depth and stencils
@@ -53,7 +53,7 @@ Reading Notes
 |	2014-11-15	| | | |
 |	2014-11-16	| | | |
 |	2014-11-17	| 7.3. Additional Class Features | | |
-|	2014-11-18	|
+|	2014-11-18	| | Drawing polygons | |
 |	2014-11-19	|
 
 ------

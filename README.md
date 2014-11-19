@@ -54,7 +54,7 @@ Reading Notes
 |	2014-11-16	| | | |
 |	2014-11-17	| 7.3. Additional Class Features | | |
 |	2014-11-18	| | Drawing polygons | |
-|	2014-11-19	|
+|	2014-11-19	| 7.4. Class Scope | |
 
 ------
 

@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////
-// Alter the vertex shader so that the triangle is upside down.
+// Invert the colors of the triangle by altering the fragment shader.
 
 #include <stdio.h>
 
@@ -12,16 +12,20 @@
 const GLchar* vertexSource = 
 	"#version 330\n"
 	"in vec2 position;"
+	"in vec3 color;"
+	"out vec3 Color;"
 	"void main()"
 	"{"
-	"	gl_Position = vec4(-position, 0.0, 1.0);"
+	"	Color = color;"
+	"	gl_Position = vec4(position, 0.0, 1.0);"
 	"}";
 
 const GLchar* fragmentSource = 
 	"#version 330\n"
+	"in vec3 Color;"
 	"void main()"
 	"{"
-	"	gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);"
+	"	gl_FragColor = vec4(1.0-Color, 1.0);"
 	"}";
 
 int main(int argc, char *argv[])
@@ -42,9 +46,9 @@ int main(int argc, char *argv[])
 	glBindVertexArray(vao);
 
 	float vertices[] = {
-		 0.0f,  0.5f, // Vertex 1 (X, Y)
-		 0.5f, -0.5f, // Vertex 2 (X, Y)
-		-0.5f, -0.5f  // Vertex 3 (X, Y)
+		 0.0f,  0.5f, 1.0f, 0.0f, 0.0f, // Vertex 1 (X, Y) Red
+		 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // Vertex 2 (X, Y) Green
+		-0.5f, -0.5f, 0.0f, 0.0f, 1.0f  // Vertex 3 (X, Y) Blue
 	};
 
 	GLuint vbo;
@@ -68,7 +72,11 @@ int main(int argc, char *argv[])
 
 	GLint posAttrib = glGetAttribLocation(shaderProgram, "position");
 	glEnableVertexAttribArray(posAttrib);
-	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0); // last two param: stride and offset.
+	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(float), 0); // last two param: stride and offset.
+
+	GLint colorAttrib = glGetAttribLocation(shaderProgram, "color");
+	glEnableVertexAttribArray(colorAttrib);
+	glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(float), (void*)(2*sizeof(float)));
 
 	SDL_Event windowEvent;
 	while (true)

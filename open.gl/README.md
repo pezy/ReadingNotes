@@ -138,3 +138,19 @@ glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW
 **vao, vbo, ebo**
 
 我们总结一下，vao(Vertex Array Objects) 出现在程序的开始，作为顶点数组的缓存。vbo(Vertex Buffer Object) 和 ebo 类似，都是基于特定类型数组的绑定，是我们数据的来源。
+
+-----
+
+Exercise [01](Exercise/01/main.cpp) | [02](Exercise/02/main.cpp) | [03](Exercise/03/main.cpp)
+
+-----
+
+##Textures objects and parameters
+
+>texture coordinates
+
+(0, 0) -> (1, 1) 分别代表左下角和右上角
+
+>sampling
+
+取样

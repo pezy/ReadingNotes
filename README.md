@@ -9,8 +9,8 @@ Reading Notes
   - [x] Chapter 4. Expressions
   - [x] Chapter 5. Statements
   - [x] Chapter 6. Functions
-  - [ ] Chapter 7. Classes
-  - [ ] Chapter 8. The IO Library
+  - [x] Chapter 7. Classes
+  - [x] Chapter 8. The IO Library
   - [ ] Chapter 9. Sequential Containers
   - [ ] Chapter 10. Generic Algorithms
   - [ ] Chapter 11. Associative Containers
@@ -38,22 +38,23 @@ Reading Notes
 
 ##Plan
 
-| Date | CP | Open.gl |
-|:----:|:--:|:-------:|
-|2014-11-20|7.5.3. The Role of the Default Constructor| |
-|2014-11-21|
-|2014-11-22|
-|2014-11-23|
-|2014-11-24|
-|2014-11-25|
-|2014-11-26|
-|2014-11-27|
-|2014-11-28|
-|2014-11-29|
-|2014-11-30|
+| Date | CP | Open.gl | MOOC |
+|:----:|:--:|:-------:|:----:|
+|2014/12/1|9.2. Container Library Overview |Textures|Python|
+|2014/12/2|9.3. Sequential Container Operations |Transformations|Java|
+|2014/12/3|9.4. How a vector Grows |Depth and stencils|C|
+|2014/12/4|9.5. Additional string Operations |Frame buffers|DataStructure|
+|2014/12/5|9.6. Container Adaptors|Geometry shaders|Algorithm|
+|2014/12/6||||
+|2014/12/7||||
+|2014/12/8||||
+|2014/12/9||||
+|2014/12/10||||
+
 
 ------
 
 ## Todo
 
 - [SDL Tutorials](http://lazyfoo.net/tutorials/SDL/index.php)
+- [6.042J Mathematics for Computer Science](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-042j-mathematics-for-computer-science-fall-2010/)

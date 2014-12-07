@@ -11,7 +11,7 @@ Reading Notes
   - [x] Chapter 6. Functions
   - [x] Chapter 7. Classes
   - [x] Chapter 8. The IO Library
-  - [ ] Chapter 9. Sequential Containers
+  - [x] Chapter 9. Sequential Containers
   - [ ] Chapter 10. Generic Algorithms
   - [ ] Chapter 11. Associative Containers
   - [ ] Chapter 12. Dynamic Memory
@@ -40,17 +40,12 @@ Reading Notes
 
 | Date | CP | Open.gl | MOOC |
 |:----:|:--:|:-------:|:----:|
-|2014/12/1|9.2. Container Library Overview |Textures|Python|
-|2014/12/2|9.3. Sequential Container Operations |Transformations|Java|
-|2014/12/3|9.4. How a vector Grows |Depth and stencils|C|
-|2014/12/4|9.5. Additional string Operations |Frame buffers|DataStructure|
-|2014/12/5|9.6. Container Adaptors|Geometry shaders|Algorithm|
-|2014/12/6||||
-|2014/12/7||||
-|2014/12/8||||
-|2014/12/9||||
-|2014/12/10||||
-
+|	2014-12-07	|	10.1. Overview	|	|		|
+|	2014-12-08	|	10.2. A First Look at the Algorithms	|	|	Python	|
+|	2014-12-09	|	10.3. Customizing Operations	|	|	Java	|
+|	2014-12-10	|	10.4. Revisiting Iterators	|	|	C	|
+|	2014-12-11	|	10.5. Structure of Generic Algorithms	|	|	Data Struct	|
+|	2014-12-12	|	10.6. Container-Specific Algorithms	|	|	Algorithm	|
 
 ------
 

@@ -149,8 +149,45 @@ Exercise [01](Exercise/01/main.cpp) | [02](Exercise/02/main.cpp) | [03](Exercise
 
 >texture coordinates
 
+```cpp
+  _ _ _ (1,1)
+ |     |
+ |     |
+ |_ _ _|
+(0,0)  
+```
 (0, 0) -> (1, 1) 分别代表左下角和右上角
 
 >sampling
 
-取样
+取样, 根据纹理坐标检索像素颜色信息。
+
+**(x, y, z) ---> (s, t, r)**
+
+-----
+
+>While linear interpolation gives a smoother result, it isn't always the most ideal option. Nearest neighbour interpolation is more suited in games that want to mimic 8 bit graphics, because of the pixelated look.
+
+linear 更平滑，但 Nearest 更加适合游戏，因其像素化的展示。
+
+更常用的是 mipmaps , 其处理结果不仅高质量，而且高效率。
+
+```cpp
+glGenerateMipmap(GL_TEXTURE_2D);
+```
+
+- `GL_NEAREST_MIPMAP_NEAREST` : 一个滤镜，近邻插值，更加贴近像素大小
+- `GL_LINEAR_MIPMAP_NEAREST` : 一个滤镜，线性插值
+- `GL_NEAREST_MIPMAP_LINEAR` : 两个滤镜，贴近像素大小，且线性插值
+- `GL_LINEAR_MIPMAP_LINEAR` : 两个滤镜，线性插值
+
+-----
+
+**Loading texture images**
+
+```cpp
+glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
+							^     ^      ^   ^(0)  v       v        ^
+						   LOD    |  width&height  |_______|________|
+						 internal pixel format    format  type    array
+```

@@ -191,3 +191,15 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
 						   LOD    |  width&height  |_______|________|
 						 internal pixel format    format  type    array
 ```
+
+## Transformations in OpenGL
+
+    物体坐标系 -----> 世界坐标系 -----> 相机坐标系 -----> 投影坐标系
+                ^                ^                 ^
+         model matrix      view matrix      projection matrix
+
+-----
+
+**Field-of-view**
+
+![FOV](https://open.gl/media/img/c4_fov.png)

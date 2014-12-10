@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////
-// Animate the blending between the textures by adding a time uniform.
+// Make the rectangle with the blended image grow bigger and smaller with sin.
 
 #include <stdio.h>
 #include <time.h>
@@ -12,6 +12,10 @@
 
 #include <SOIL.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 const GLchar* vertexSource = 
 	"#version 150\n"
 	"in vec2 position;"
@@ -19,11 +23,14 @@ const GLchar* vertexSource =
 	"in vec2 texcoord;"
 	"out vec3 Color;"
 	"out vec2 Texcoord;"
+	"uniform mat4 model;"
+	"uniform mat4 view;"
+	"uniform mat4 proj;"
 	"void main()"
 	"{"
 	"	Texcoord = texcoord;"
 	"	Color = color;"
-	"	gl_Position = vec4(position, 0.0, 1.0);"
+	"	gl_Position = proj * view * model * vec4(position, 0.0, 1.0);"
 	"}";
 
 const GLchar* fragmentSource = 
@@ -33,13 +40,11 @@ const GLchar* fragmentSource =
 	"out vec4 outColor;"
 	"uniform sampler2D texKitten;"
 	"uniform sampler2D texPuppy;"
-	"uniform float time;"
 	"void main()"
 	"{"
-	"	float factor = (sin(time * 3.0) + 1.0) / 2.0;"
 	"	vec4 colKitten = texture(texKitten, Texcoord);"
 	"	vec4 colPuppy = texture(texPuppy, Texcoord);"
-	"	outColor = mix(colKitten, colPuppy, factor);"
+	"	outColor = mix(colKitten, colPuppy, 0.5);"
 	"}";
 
 int main(int argc, char *argv[])
@@ -138,7 +143,20 @@ int main(int argc, char *argv[])
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	GLint uniTime = glGetUniformLocation(shaderProgram, "time");
+	glm::mat4 view = glm::lookAt(
+		glm::vec3(1.2f, 1.2f, 1.2f),
+		glm::vec3(0.0f, 0.0f, 0.0f),
+		glm::vec3(0.0f, 0.0f, 1.0f)
+	);
+	glm::mat4 proj = glm::perspective(45.0f, 800.0f / 600.0f, 1.0f, 10.0f);
+
+	//GLint uniTime = glGetUniformLocation(shaderProgram, "time");
+	GLint uniTrans = glGetUniformLocation(shaderProgram, "model");
+	GLint uniView = glGetUniformLocation(shaderProgram, "view");
+	GLint uniProj = glGetUniformLocation(shaderProgram, "proj");
+	
+	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
 	SDL_Event windowEvent;
 	while (true)
@@ -155,8 +173,22 @@ int main(int argc, char *argv[])
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// set the time uniform
-		glUniform1f(uniTime, (GLfloat)clock() / (GLfloat)CLOCKS_PER_SEC);
+		//glUniform1f(uniTime, (GLfloat)clock() / (GLfloat)CLOCKS_PER_SEC);
 
+		// Calculate transformation
+		glm::mat4 model;
+		model = glm::rotate(
+			model,
+			(float)clock() / (float)CLOCKS_PER_SEC * 180.0f,
+			glm::vec3(0.0f, 0.0f, 1.0f)
+			);
+
+		GLfloat s = sin((GLfloat)clock() / (GLfloat)CLOCKS_PER_SEC * 5.0f) * 0.25f + 0.75f;
+		model = glm::scale(model, glm::vec3(s, s, s));
+
+		glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(model));
+
+		// Draw a rectangle from the 2 triangles using 6 indices
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		SDL_GL_SwapWindow(window);

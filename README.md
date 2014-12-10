@@ -26,8 +26,8 @@ Reading Notes
   - [x] Introduction
   - [x] Content creation
   - [x] Drawing polygons
-  - [ ] Textures
-  - [ ] Transformations
+  - [x] Textures
+  - [x] Transformations
   - [ ] Depth and stencils
   - [ ] Frame buffers
   - [ ] Geometry shaders
@@ -55,3 +55,4 @@ Reading Notes
 - [6.042J Mathematics for Computer Science](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-042j-mathematics-for-computer-science-fall-2010/)
 - 研究并总结深度优先搜索与广度优先搜索（从树和图的角度全面的去看）
 - 研究基础STL数据结构的实现，如 std::vector, std::string, std::deque, std::list, std::forward_list.
+- [6.837 Computer Graphics](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-837-computer-graphics-fall-2012/index.htm)

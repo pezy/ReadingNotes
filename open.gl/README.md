@@ -203,3 +203,25 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
 **Field-of-view**
 
 ![FOV](https://open.gl/media/img/c4_fov.png)
+
+## Depth buffer
+
+> *Z-buffering* is a way of keeping track of the depth of every pixel on the screen.
+
+** depth testing **
+
+深度测试是啥意思？
+
+比较两个 fragment 的深度值，谁更贴近表面（离用户视角更近），它就应该覆盖另一个，另一个甚至可以被舍弃。
+
+而 OpenGL 用来存储这些深度值的 buffer，就叫 depth buffer. depth testing 默认是不开启的，因为它对性能会有很大的影响，要开启它，需要调用：
+
+    glEnable(GL_DEPTH_TEST);
+
+并且应该在循环中时刻清空 depth buffer, 确保默认值 1.0f.
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+## Stencil buffer
+
+这个 buffer 决定了哪些该画，哪些不该画。它是依赖 depth buffer 的，如果 depth test fails, 它也不会继续决定了。

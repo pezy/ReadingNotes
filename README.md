@@ -28,7 +28,7 @@ Reading Notes
   - [x] Drawing polygons
   - [x] Textures
   - [x] Transformations
-  - [ ] Depth and stencils
+  - [x] Depth and stencils
   - [ ] Frame buffers
   - [ ] Geometry shaders
   - [ ] Transform feedback
@@ -56,3 +56,14 @@ Reading Notes
 - 研究并总结深度优先搜索与广度优先搜索（从树和图的角度全面的去看）
 - 研究基础STL数据结构的实现，如 std::vector, std::string, std::deque, std::list, std::forward_list.
 - [6.837 Computer Graphics](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-837-computer-graphics-fall-2012/index.htm)
+
+-----
+
+## Cache
+
+- Rust
+    - http://learnxinyminutes.com/docs/rust/
+    - http://rustbyexample.com/
+    - http://doc.rust-lang.org/nightly/guide.html
+    - http://play.rust-lang.org/
+    - http://www.reddit.com/r/rust

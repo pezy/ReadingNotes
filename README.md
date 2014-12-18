@@ -12,8 +12,8 @@ Reading Notes
   - [x] Chapter 7. Classes
   - [x] Chapter 8. The IO Library
   - [x] Chapter 9. Sequential Containers
-  - [ ] Chapter 10. Generic Algorithms
-  - [ ] Chapter 11. Associative Containers
+  - [x] Chapter 10. Generic Algorithms
+  - [x] Chapter 11. Associative Containers
   - [ ] Chapter 12. Dynamic Memory
   - [ ] Chapter 13. Copy Control
   - [ ] Chapter 14. Overloaded Operations and Conversions]
@@ -67,3 +67,6 @@ Reading Notes
     - http://doc.rust-lang.org/nightly/guide.html
     - http://play.rust-lang.org/
     - http://www.reddit.com/r/rust
+
+- C/C++
+    - http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-s096-effective-programming-in-c-and-c-january-iap-2014/

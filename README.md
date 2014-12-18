@@ -70,3 +70,6 @@ Reading Notes
 
 - C/C++
     - http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-s096-effective-programming-in-c-and-c-january-iap-2014/
+
+- Graphics
+    - http://www.cgal.org/

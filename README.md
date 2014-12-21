@@ -38,14 +38,8 @@ Reading Notes
 
 ##Plan
 
-| Date | CP | Open.gl | MOOC |
-|:----:|:--:|:-------:|:----:|
-|	2014-12-07	|	10.1. Overview	|	|		|
-|	2014-12-08	|	10.2. A First Look at the Algorithms	|	|	Python	|
-|	2014-12-09	|	10.3. Customizing Operations	|	|	Java	|
-|	2014-12-10	|	10.4. Revisiting Iterators	|	|	C	|
-|	2014-12-11	|	10.5. Structure of Generic Algorithms	|	|	Data Struct	|
-|	2014-12-12	|	10.6. Container-Specific Algorithms	|	|	Algorithm	|
+| Date | CP | Open.gl |
+|:----:|:--:|:-------:|
 
 ------
 

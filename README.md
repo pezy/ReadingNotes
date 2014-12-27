@@ -38,9 +38,6 @@ Reading Notes
 
 ##Plan
 
-| Date | CP | Open.gl |
-|:----:|:--:|:-------:|
-
 ------
 
 ## Todo

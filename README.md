@@ -14,7 +14,7 @@ Reading Notes
   - [x] Chapter 9. Sequential Containers
   - [x] Chapter 10. Generic Algorithms
   - [x] Chapter 11. Associative Containers
-  - [ ] Chapter 12. Dynamic Memory
+  - [x] Chapter 12. Dynamic Memory
   - [ ] Chapter 13. Copy Control
   - [ ] Chapter 14. Overloaded Operations and Conversions]
   - [ ] Chapter 15. Object-Oriented Programming

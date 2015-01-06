@@ -225,3 +225,19 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
 ## Stencil buffer
 
 这个 buffer 决定了哪些该画，哪些不该画。它是依赖 depth buffer 的，如果 depth test fails, 它也不会继续决定了。
+
+# Basic geometry shader
+
+**Input type**
+
+- points - GL_POINTS(1 vertex)
+- lines - GL_LINES, GL_LINE_STRIP, GL_LINE_LIST (2 vertices)
+- lines_adjacency - GL_LINES_ADJACENCY, GL_LINE_STRIP_ADJACENCY (4 vertices)
+- triangles - GL_TRIANGLES, GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN (3 vertices)
+- triangles_adjacency - GL_TRIANGLES_ADJACENCY, GL_TRIANGLE_STRIP_ADJACENCY (6 vertices)
+
+**Output type**
+
+- points
+- line_strip
+- triangle_strip

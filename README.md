@@ -22,16 +22,7 @@ Reading Notes
   - [ ] Chapter 17. Specialized Library Facilities
   - [ ] Chapter 18. Tools for Large Programs
   - [ ] Chapter 19. Specialized Tools and Techniques
-- [ ] [OpenGL - Introduction](https://open.gl)
-  - [x] Introduction
-  - [x] Content creation
-  - [x] Drawing polygons
-  - [x] Textures
-  - [x] Transformations
-  - [x] Depth and stencils
-  - [ ] Frame buffers
-  - [ ] Geometry shaders
-  - [ ] Transform feedback
+- [x] [OpenGL - Introduction](https://open.gl)
 - [x] [暗时间](http://book.douban.com/subject/6709809/)
 
 ----------

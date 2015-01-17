@@ -33,7 +33,6 @@ Reading Notes
 
 ## Todo
 
-- [SDL Tutorials](http://lazyfoo.net/tutorials/SDL/index.php)
 - [6.042J Mathematics for Computer Science](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-042j-mathematics-for-computer-science-fall-2010/)
 - 研究并总结深度优先搜索与广度优先搜索（从树和图的角度全面的去看）
 - 研究基础STL数据结构的实现，如 std::vector, std::string, std::deque, std::list, std::forward_list.
@@ -56,6 +55,7 @@ Reading Notes
 
 - Graphics
     - http://www.cgal.org/
+    - [SDL Tutorials](http://lazyfoo.net/tutorials/SDL/index.php)
 
 - Math
     - [Calculus II(GIR)](http://ocw.mit.edu/courses/mathematics/18-02-multivariable-calculus-fall-2007/)

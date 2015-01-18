@@ -64,3 +64,6 @@ Reading Notes
 
 - DataBase
     - [Database System Implementation](http://web.stanford.edu/class/cs346/)
+
+- Data Structure
+    - [Open Data Structures](http://opendatastructures.org/)

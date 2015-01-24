@@ -29,6 +29,8 @@ Reading Notes
 
 ##Plan
 
+- JavaScript
+
 ------
 
 ## Todo

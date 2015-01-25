@@ -25,12 +25,6 @@ Reading Notes
 - [x] [OpenGL - Introduction](https://open.gl)
 - [x] [暗时间](http://book.douban.com/subject/6709809/)
 
-----------
-
-##Plan
-
-- JavaScript
-
 ------
 
 ## Todo
@@ -69,3 +63,8 @@ Reading Notes
 
 - Data Structure
     - [Open Data Structures](http://opendatastructures.org/)
+
+- JavaScript
+    - [Head First JavaScript](http://book.douban.com/subject/2372267/)
+    - [JavaScript: The Definitive Guide, 5th](http://book.douban.com/subject/1775608/)
+    - [Secrets of the JavaScript Ninja](http://book.douban.com/subject/3176860/)

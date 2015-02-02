@@ -30,6 +30,7 @@ Reading Notes
 ## Todo
 
 - 研究基础STL数据结构的实现，如 std::vector, std::string, std::deque, std::list, std::forward_list.
+- [MIT 算法导论](http://open.163.com/special/opencourse/algorithms.html)
 - [6.042J Mathematics for Computer Science](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-042j-mathematics-for-computer-science-fall-2010/)
 - 研究并总结深度优先搜索与广度优先搜索（从树和图的角度全面的去看）
 - [6.837 Computer Graphics](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-837-computer-graphics-fall-2012/index.htm)
@@ -68,3 +69,6 @@ Reading Notes
     - [Head First JavaScript](http://book.douban.com/subject/2372267/)
     - [JavaScript: The Definitive Guide, 5th](http://book.douban.com/subject/1775608/)
     - [Secrets of the JavaScript Ninja](http://book.douban.com/subject/3176860/)
+  
+- Python
+    - [人人都懂的编程课 python](https://www.coursera.org/course/pythonlearn)

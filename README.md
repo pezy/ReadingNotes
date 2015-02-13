@@ -15,8 +15,8 @@ Reading Notes
   - [x] Chapter 10. Generic Algorithms
   - [x] Chapter 11. Associative Containers
   - [x] Chapter 12. Dynamic Memory
-  - [ ] Chapter 13. Copy Control
-  - [ ] Chapter 14. Overloaded Operations and Conversions]
+  - [x] Chapter 13. Copy Control
+  - [ ] Chapter 14. Overloaded Operations and Conversions
   - [ ] Chapter 15. Object-Oriented Programming
   - [ ] Chapter 16. Templates and Generic Programming
   - [ ] Chapter 17. Specialized Library Facilities

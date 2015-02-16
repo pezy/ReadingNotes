@@ -22,8 +22,6 @@ Reading Notes
   - [ ] Chapter 17. Specialized Library Facilities
   - [ ] Chapter 18. Tools for Large Programs
   - [ ] Chapter 19. Specialized Tools and Techniques
-- [x] [OpenGL - Introduction](https://open.gl)
-- [x] [暗时间](http://book.douban.com/subject/6709809/)
 
 ------
 

@@ -25,6 +25,12 @@ Reading Notes
 
 ------
 
+## Plan
+
+- [ ] C++ Primer 5th Chapter 14
+
+------
+
 ## Todo
 
 - [MIT 算法导论](http://open.163.com/special/opencourse/algorithms.html)

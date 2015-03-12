@@ -25,12 +25,6 @@ Reading Notes
 
 ------
 
-## Plan
-
-- [ ] C++ Primer 5th Chapter 14
-
-------
-
 ## Todo
 
 - [MIT 算法导论](http://open.163.com/special/opencourse/algorithms.html)
@@ -75,3 +69,6 @@ Reading Notes
   
 - Python
     - [人人都懂的编程课 python](https://www.coursera.org/course/pythonlearn)
+  
+- OS
+    - [Berkeley CS162: Operating Systems and Systems Programming](http://cs162.eecs.berkeley.edu/)

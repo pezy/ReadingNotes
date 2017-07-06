@@ -1,4 +1,6 @@
-##introduction
+# Notes
+
+## Introduction
 
 This guide just introduce `shader` (new parts of the OpenGL specification).
 
@@ -8,7 +10,7 @@ Prerequisites:
 - use newer OpenGL functions: [GLEW](https://github.com/nigels-com/glew)
 - vectors and matrices: [GLM](https://github.com/g-truc/glm)
 
-##context
+## context
 
 SDL:
 
@@ -34,73 +36,79 @@ Code:
 
 int main(int argc, char *argv[])
 {
-	SDL_Init(SDL_INIT_VIDEO);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+    SDL_Init(SDL_INIT_VIDEO);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
 
-	SDL_Window* window = SDL_CreateWindow("OpenGL", 100, 100, 800, 600, SDL_WINDOW_OPENGL);
-	SDL_GLContext context = SDL_GL_CreateContext(window);
+    SDL_Window* window = SDL_CreateWindow("OpenGL", 100, 100, 800, 600, SDL_WINDOW_OPENGL);
+    SDL_GLContext context = SDL_GL_CreateContext(window);
 
-	glewExperimental = GL_TRUE;
-	glewInit();
-	GLuint vertexBuffer;
-	glGenBuffers(1, &vertexBuffer);
+    glewExperimental = GL_TRUE;
+    glewInit();
+    GLuint vertexBuffer;
+    glGenBuffers(1, &vertexBuffer);
 
-	printf("%u\n", vertexBuffer);
+    printf("%u\n", vertexBuffer);
 
-	SDL_Event windowEvent;
-	while (true)
-	{
-		if (SDL_PollEvent(&windowEvent))
-		{
-			if (windowEvent.type == SDL_QUIT) break;
-			else if (windowEvent.type == SDL_KEYUP &&
-				windowEvent.key.keysym.sym == SDLK_ESCAPE) break;
-		}
+    SDL_Event windowEvent;
+    while (true)
+    {
+        if (SDL_PollEvent(&windowEvent))
+        {
+            if (windowEvent.type == SDL_QUIT) break;
+            else if (windowEvent.type == SDL_KEYUP &&
+                windowEvent.key.keysym.sym == SDLK_ESCAPE) break;
+        }
 
-		SDL_GL_SwapWindow(window);
-	}
-	SDL_GL_DeleteContext(context);
+        SDL_GL_SwapWindow(window);
+    }
+    SDL_GL_DeleteContext(context);
 
-	SDL_Quit();
-	return 0;
+    SDL_Quit();
+    return 0;
 }
 ```
 
-##The graphics pipeline
+## The graphics pipeline
 
 ![](https://open.gl/media/img/c2_pipeline.png)
 
 -----
 
-**数据是如何变成三维图形的？**
+数据是如何变成三维图形的？
 
 一切都要从 vertices 说起，我们给出的数据是一个三角形的三个顶点。存放在 vertices 数组中。它将要经历以下几段程序:
 
-1. [***vertex shader***]
+- [***vertex shader***]
+
 这货藏在显卡上，就是它将咱们的数据（那三个点）加载到显卡上的，我们给出的数据，可能是三维的，但我们的屏幕却是二维的，这货负责从三维到二维的转换(perspective transformation)，同时它还负责某些重要属性(如颜色和纹理坐标等)传输到pipeline中。
 
-2. [***primitives***]
+- [***primitives***]
+
 这货叫图元，就是基本的几何体，上面不是把顶点坐标传到显卡了吗？接下来它们就要被组装成一个一个基本图元，点、线、三角、四边形等等。还包括一些比较聪明的图元：triangle strip 和 line strips。这俩东西说白了就是偷懒偷出来的，啥意思呢？譬如两个三角形挨着，那么他们一定共用着一条线，我们想办法让这条线只画一次。于是就有了这些 strips.
 
-3. [***geometry shader***]
+- [***geometry shader***]
+
 这一步是可选的，这货也刚出世不久。和上面那些搬运工、装配工相比，它可不一般，它接收到 primitives 后，会对其进行存储、优化、修正等等一系列事情，然后可能产生更加全面的数据。咱都知道，GPU 和 CPU 之间传输效率是个瓶颈，但这货可以帮你权衡到底哪些才是 GPU 真正需要的。
 
-4. [***rasterizer***]
+- [***rasterizer***]
+
 当上述一系列图形都准备好，光栅器出场了，这家伙曾在[知乎](http://www.zhihu.com/question/24786878)上引出几位图形学大牛热烈的探讨，实现一个 rasterizer 应该算是图形学真正入门的标志。这货会将可视化的图形转换为像素片段(pixel-sized *fragments*)，如上面那张图画的那样，就连原本平滑变化的颜色也要计算插值，然后分布在各个片段上。
 
-5. [***fragment shader***]
+- [***fragment shader***]
+
 这货主要就是干插值的，将各种属性（诸如颜色、纹理，乃至光照与阴影），分配到各个像素片段上。它还能删减一些片段，让其看起来是透明效果。
 
-6. [***blending and tests***]
+- [***blending and tests***]
+
 最后就是混合调配，加上深度模板测试(depth and stencil testing)等等。譬如一个三角形被另一个三角形挡住，那么应该让上面那个显示在屏幕上。
 
 就这样，我们输入的一个个数据，变成了三维图形。
 
 -----
 
-**Vertices**
+### Vertices
 
 glBufferData 最后一个参数：
 
@@ -113,6 +121,7 @@ glBufferData 最后一个参数：
 两种绘制方式：Vertices and Uniforms
 
 Uniforms 高级的地方在于，它可以提取 program 中定义为 uniform 类型的值(譬如颜色)，然后可以做到在循环渲染中不断改变，使图形呈现动态的效果。
+
 ```cpp
 glGetUniformLocation // 取值
 glUniform3f // 设值
@@ -124,7 +133,7 @@ Vertices shader 和 fragment shader 可以用 in 和 out 同名参数来进行�
 
 -----
 
-**Element buffers**
+### Element buffers
 
 这种方式有点像咱们在OSG里面的DrawElementsUInt，可以把你要绘制的所有点，都先放到 vertices 中，然后根据按照某种顺序连接部分点。这样就实现了点的**复用**。而这个顺序，就存在 elements 数组中。
 
@@ -135,7 +144,7 @@ glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
 ```
 
-**vao, vbo, ebo**
+### vao, vbo, ebo
 
 我们总结一下，vao(Vertex Array Objects) 出现在程序的开始，作为顶点数组的缓存。vbo(Vertex Buffer Object) 和 ebo 类似，都是基于特定类型数组的绑定，是我们数据的来源。
 
@@ -145,7 +154,7 @@ Exercise [01](Exercise/01/main.cpp) | [02](Exercise/02/main.cpp) | [03](Exercise
 
 -----
 
-##Textures objects and parameters
+## Textures objects and parameters
 
 >texture coordinates
 
@@ -154,15 +163,16 @@ Exercise [01](Exercise/01/main.cpp) | [02](Exercise/02/main.cpp) | [03](Exercise
  |     |
  |     |
  |_ _ _|
-(0,0)  
+(0,0)
 ```
+
 (0, 0) -> (1, 1) 分别代表左下角和右上角
 
 >sampling
 
 取样, 根据纹理坐标检索像素颜色信息。
 
-**(x, y, z) ---> (s, t, r)**
+### (x, y, z) ---> (s, t, r)
 
 -----
 
@@ -183,13 +193,13 @@ glGenerateMipmap(GL_TEXTURE_2D);
 
 -----
 
-**Loading texture images**
+### Loading texture images
 
 ```cpp
 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
-							^     ^      ^   ^(0)  v       v        ^
-						   LOD    |  width&height  |_______|________|
-						 internal pixel format    format  type    array
+                            ^     ^      ^   ^(0)  v       v        ^
+                           LOD    |  width&height  |_______|________|
+                         internal pixel format    format  type    array
 ```
 
 ## Transformations in OpenGL
@@ -200,7 +210,7 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
 
 -----
 
-**Field-of-view**
+### Field-of-view
 
 ![FOV](https://open.gl/media/img/c4_fov.png)
 
@@ -226,9 +236,9 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
 
 这个 buffer 决定了哪些该画，哪些不该画。它是依赖 depth buffer 的，如果 depth test fails, 它也不会继续决定了。
 
-# Basic geometry shader
+## Basic geometry shader
 
-**Input type**
+### Input type
 
 - points - GL_POINTS(1 vertex)
 - lines - GL_LINES, GL_LINE_STRIP, GL_LINE_LIST (2 vertices)
@@ -236,7 +246,7 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
 - triangles - GL_TRIANGLES, GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN (3 vertices)
 - triangles_adjacency - GL_TRIANGLES_ADJACENCY, GL_TRIANGLE_STRIP_ADJACENCY (6 vertices)
 
-**Output type**
+### Output type
 
 - points
 - line_strip

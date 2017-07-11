@@ -25,7 +25,7 @@
 
 - [ ] [Learning OpenCV 3](http://shop.oreilly.com/product/0636920044765.do)
   - [x] Chapter 1 Overview
-  - [ ] Chapter 2 Introduction to OpenCV
+  - [x] Chapter 2 Introduction to OpenCV
   - [ ] Chapter 3 Getting to Know OpenCV Data Types
   - [ ] Chapter 4 Images and Large Array Types
   - [ ] Chapter 5 Array Operations

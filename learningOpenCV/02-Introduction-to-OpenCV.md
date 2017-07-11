@@ -22,3 +22,18 @@
 ```
 
 你完全可以包含一个 "opencv.hpp" 来调用绝大部分 OpenCV 的函数, 但这样会降低编译速度. 如果你只用到图像处理功能, 那么你只引入 "opencv2/imgproc/imgproc.hpp" 会快很多. 类似的, 函数的实现会在它们各自的 `src` 目录下. 例如, `imgproc` 模块的 `cv::Canny()` 实现位于 `../modules/improc/src/canny.cpp`.
+
+## 习题要求编译文档与示例代码
+
+在 CMake 里勾选 `BUILD_DOCS`, 并指定 DOXYGEN 相关路径. 这就要求你安装以下两个工具:
+
+1. [doxygen](http://www.stack.nl/~dimitri/doxygen/index.html)
+1. [graphviz](http://www.graphviz.org/)
+
+然后分别指定 doxygen.exe 的位置与 dot.exe 的位置即可.
+
+在 build/doc 下会产生一个 `opencv_docs.sln`, 双击进入, 然后 build `ALL_BUILD` 和 `install_docs` 即可, 最后可以在 doc/doxygen/html/index.html 进入文档.
+
+----
+
+关于示例代码, 在 CMake 里勾选 `BUILD_EXAMPLES` 即可.

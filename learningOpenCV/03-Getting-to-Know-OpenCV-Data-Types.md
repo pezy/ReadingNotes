@@ -29,7 +29,7 @@ OpenCV 中的复数类与 STL 中的兼容, 最显著的一点区别在于, STL 
 
 `cv::Exception` 派生自 `std::exception`. 其成员有 `code`, `err`, `func`, `file` 和 `line`, 代表着错误代码, 错误描述信息, 错误发生所在函数名, 错误发生所在文件名及在文件中的行数.
 
-几个比较有用的宏: 
+几个比较有用的宏:
 
 ```cpp
 CV_Error( errorcode, description ); // 生成并抛出异常, 并给出相应描述
@@ -38,4 +38,8 @@ CV_Assert( condition ); // 相当于 assert();
 CV_DbgAssert( condition ); // 这个与上面的作用类似, 但仅在 debug 条件下工作.
 ```
 
-`cv::DataType<>` 模板, OpenCV 中具体数据类型, 多自此特例化而来. 这有点类似 C++ 的特征萃取技术(types traits).
+`cv::DataType<>` 模板, OpenCV 中具体数据类型, 多自此特例化而来. 这有点类似 C++ 的特征萃取技术(types traits). 针对基本类型(float), 复杂类型(Rect)分别举例说明.
+
+`cv::InputArray` 和 `cv::OutputArray` 统一了输入输出接口. It is const.
+
+这一大截东西略感无聊, 感觉介绍的干巴巴的.

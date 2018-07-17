@@ -5,8 +5,16 @@
 
 #include "parallel_accumulate.h"
 #include "threadsafe_stack.h"
+#include "threadsafe_swap.h"
+#include "hierarchical_mutex.h"
 
-#define TEST_THREADSAFE_STACK 1
+#define TEST_HIERARCHICAL_MUTEX 1
+
+template<typename C>
+void Print(const C& c) {
+  for (auto&& i : c) std::cout << i << " ";
+  std::cout << std::endl;
+}
 
 void hello() {
 	std::cout << "Hello Concurrent World\n";
@@ -182,5 +190,59 @@ int main()
   
   productor.join();
   customer.join();
+#endif
+
+#ifdef TEST_THREADSAFE_SWAP
+  X safe_big_a(BigObject{3, 5, 7, 8, 0, 2});
+  X safe_big_b(BigObject{4, 6, 8, 9, 2, 1});
+  
+  std::thread swap_thread([](X& lhs, X& rhs){
+    std::swap(lhs, rhs);
+  }, std::ref(safe_big_a), std::ref(safe_big_b));
+  
+  swap_thread.join();
+  
+  Print(safe_big_a.big_object());
+  Print(safe_big_b.big_object());
+#endif
+
+#ifdef TEST_HIERARCHICAL_MUTEX
+  HierarchicalMutex high_level_mutex(10000);
+  HierarchicalMutex low_level_mutex(5000);
+  
+  auto LowLevelFunc = [&](){
+    std::lock_guard<HierarchicalMutex> lk(low_level_mutex);
+    std::cout << "do some low level stuff..." << std::endl;
+  };
+  
+  auto HighLevelFunc = [&](){
+    std::lock_guard<HierarchicalMutex> lk(high_level_mutex);
+    std::cout << "do some low level stuff...\ndo some high level stuff..." << std::endl;
+  };
+  
+  HierarchicalMutex other_mutex(100);
+  auto OtherStuff = [&](){
+    HighLevelFunc();
+    std::cout << "do other stuff..." << std::endl;
+  };
+  
+  std::thread thread_a([&](){
+    HighLevelFunc();
+  });
+  
+  std::thread thread_b([&](){
+    std::lock_guard<HierarchicalMutex> lk(other_mutex);
+    try {
+      OtherStuff();
+    } catch (std::logic_error e) {
+      // HighLevelFunc tries to acquire the high_level_mutex, which has a value 
+      // 10000, considerably more than the current hierarchy value of 100.
+      // The HierarchicalMutex will therefore report an error.
+      std::cout << e.what() << std::endl;
+    }
+  });
+  
+  thread_a.join();
+  thread_b.join();
 #endif
 }

@@ -1,8 +1,12 @@
 #include <iostream>
 #include <thread>
 #include <numeric>
-#include <algorithm>
 #include <vector>
+
+#include "parallel_accumulate.h"
+#include "threadsafe_stack.h"
+
+#define TEST_THREADSAFE_STACK 1
 
 void hello() {
 	std::cout << "Hello Concurrent World\n";
@@ -51,10 +55,10 @@ void callable_example() {
 	// or std::thread my_thread((background_task()));
 	// of course, you can use lambda.
 
-	std::thread my_thread2([]() {
-		std::cout << "from lambda\n";
+	std::thread my_thread2([](int i) {
+		std::cout << i << "from lambda\n";
 		std::cout << "else from lambda too\n";
-	});
+	}, 3);
 
 	my_thread.join();
 	my_thread2.join();
@@ -139,63 +143,44 @@ private:
   std::thread t_;
 };
 
-void f() {
-  double some_local_state  = 2.0;
-  scoped_thread t(std::thread(func(some_local_state)));
-  do_something_in_current_thread();
-}
-
-template<typename Iterator, typename T>
-struct accumulate_block {
-  void operator()(Iterator first, Iterator last, T& result) {
-    result = std::accumulate(first, last, result);
-  }
-};
-
-template<typename Iterator, typename T>
-T parallel_accumulate(Iterator first, Iterator last, T init) {
-  const unsigned long length = std::distance(first, last);
-  if (!length) return init;
-
-  const unsigned long min_per_thread = 25;
-  const unsigned long max_threads = (length + min_per_thread - 1) / min_per_thread;
-  const unsigned long hardware_threads = std::thread::hardware_concurrency();
-  const unsigned long num_threads = std::min(hardware_threads ? hardware_threads : 2, max_threads);
-  const unsigned long block_size = length / num_threads;
-
-  std::vector<T> results(num_threads);
-  std::vector<std::thread> threads(num_threads - 1);
-
-  Iterator block_start = first;
-  for (unsigned long i = 0; i < num_threads - 1; ++i) {
-    Iterator block_end = block_start;
-    std::advance(block_end, block_size);
-    threads[i] = std::thread(accumulate_block<Iterator, T>(), block_start, block_end, std::ref(results[i]));
-    block_start = block_end;
-  }
-
-  accumulate_block<Iterator, T>()(block_start, last, results[num_threads - 1]);
-  std::for_each(threads.begin(), threads.end(), std::mem_fn(&std::thread::join));
-  return std::accumulate(results.begin(), results.end(), init);
-}
-
 int main()
 {
+#ifdef TEST_CALLABLE
+  callable_example();
+#endif
+
+#ifdef TEST_PARALLEL_ACCUMULATE
   unsigned int n = std::thread::hardware_concurrency();
   std::cout << n << " concurrent threads are supported.\n";
-
-	// every thread has to have an `initial function`, 
-	// which is where the new thread of execution begins.
-
-	//simple_example();
-	//callable_example();
-	//no_oops();
-	//f();
-
+  
   std::vector<int> vec{1,3,4,5,6,80,7,8,4,3,2,4,5,64,23,4,5,4,32,53,2323,23,2,23,89,67,7878,9};
   auto sum = parallel_accumulate(vec.begin(), vec.end(), 0);
   std::cout << sum << std::endl;
 
   std::cout << std::this_thread::get_id() << std::endl;
   std::this_thread::sleep_for(std::chrono::milliseconds(10));
+#endif
+
+#ifdef TEST_THREADSAFE_STACK
+  ThreadSafeStack<int> stack;
+  
+  std::thread productor([](ThreadSafeStack<int> &s){
+    int n = 10;
+    while (n --> 0) {
+      s.Push(n);
+      std::this_thread::sleep_for(std::chrono::milliseconds(2));
+    }
+  }, std::ref(stack));
+  
+  std::thread customer([](ThreadSafeStack<int> &s){
+    while (true) {
+      if (!s.Empty())
+        std::cout << *s.Pop() << std::endl;
+      std::this_thread::sleep_for(std::chrono::milliseconds(5));
+    }
+  }, std::ref(stack));
+  
+  productor.join();
+  customer.join();
+#endif
 }

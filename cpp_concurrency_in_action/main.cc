@@ -7,8 +7,9 @@
 #include "threadsafe_stack.h"
 #include "threadsafe_swap.h"
 #include "hierarchical_mutex.h"
+#include "threadsafe_map.h"
 
-#define TEST_HIERARCHICAL_MUTEX 1
+#define TEST_THREADSAFE_MAP 1
 
 template<typename C>
 void Print(const C& c) {
@@ -244,5 +245,38 @@ int main()
   
   thread_a.join();
   thread_b.join();
+#endif
+
+#ifdef TEST_THREADSAFE_MAP
+  DnsCache cache;
+  std::thread writer([&cache](){
+    cache.UpdateOrAddEntry("www.baidu.com", DnsEntry("220.181.112.244"));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2));
+    cache.UpdateOrAddEntry("www.sina.com", DnsEntry("66.102.251.33"));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2));
+    cache.UpdateOrAddEntry("www.google.com", DnsEntry("69.171.248.112"));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2));
+    cache.UpdateOrAddEntry("www.zhihu.com", DnsEntry("118.89.204.100"));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2));
+    cache.UpdateOrAddEntry("www.douban.com", DnsEntry("154.8.131.171"));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2));
+  });
+  
+  auto view_web = [&cache](const std::string& domain) {
+    for (int i = 0; i != 4; ++i) {
+      const auto& entry = cache.FindEntry(domain);
+      std::cout << (entry.ip_.empty() ? "cannot find..." : entry.ip_) << std::endl;
+      std::this_thread::sleep_for(std::chrono::milliseconds(5));
+    }
+  };
+  
+  std::thread reader_douban(view_web, "www.douban.com");
+  std::thread reader_zhihu(view_web, "www.zhihu.com");
+  std::thread reader_baidu(view_web, "www.baidu.com");
+  
+  writer.join();
+  reader_douban.join();
+  reader_zhihu.join();
+  reader_baidu.join();
 #endif
 }

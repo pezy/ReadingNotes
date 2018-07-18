@@ -45,3 +45,11 @@ copyable.
 > Don't pass pointers and references to protected data outside the scope of 
 the lock, whether by returning them from a function, storing them in externally 
 visible memory, or passing them as arguments to user-supplied functions.
+
+> In general, a lock should be held for only the minimum possible time needed to
+perform the required operations.
+
+`std::unique_lock`
+
+1. move the mutex; 
+2. unlock at an appropriate granularity.

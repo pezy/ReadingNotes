@@ -8,8 +8,10 @@
 #include "threadsafe_swap.h"
 #include "hierarchical_mutex.h"
 #include "threadsafe_map.h"
+#include "condition_variable_example.h"
+#include "threadsafe_queue.h"
 
-#define TEST_THREADSAFE_MAP 1
+#define TEST_THREADSAFE_QUEUE 1
 
 template<typename C>
 void Print(const C& c) {
@@ -278,5 +280,34 @@ int main()
   reader_douban.join();
   reader_zhihu.join();
   reader_baidu.join();
+#endif
+
+#ifdef TEST_CONDITION_VARIABLE_EXAMPLE
+  std::thread data_preparetion(Example::DataPrepare);
+  std::thread data_processing(Example::DataProcess);
+  data_preparetion.join();
+  data_processing.join();
+#endif
+
+#ifdef TEST_THREADSAFE_QUEUE
+  ThreadSafeQueue<DataChunk> data_queue;
+  std::thread data_preparetion([&]{
+    for (int i = 0; i != 20; ++i) {
+      DataChunk data;
+      data.value_ = i;
+      data.is_last_chunk_ = i == 19;
+      data_queue.Push(data);
+    }
+  });
+  std::thread data_processing([&]{
+    while (true) {
+      DataChunk data;
+      data_queue.WaitAndPop(data);
+      std::cout << "process " << data.value_ << "...\n";
+      if (data.is_last_chunk_) break;
+    }
+  });
+  data_preparetion.join();
+  data_processing.join();
 #endif
 }

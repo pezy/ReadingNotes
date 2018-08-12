@@ -1,2 +1,5 @@
 build/
 .DS_Store
+*.log
+__pycache__/
+db.sqlite3
